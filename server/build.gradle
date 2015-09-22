@@ -1,0 +1,6 @@
+
+dependencies {
+
+  compile project(":${rootProject.name}-common")
+  compile project(":${rootProject.name}-services")
+}
