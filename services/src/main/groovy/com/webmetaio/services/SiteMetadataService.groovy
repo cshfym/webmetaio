@@ -3,10 +3,12 @@ package com.webmetaio.services
 import com.webmetaio.core.model.SiteMetadata
 import com.webmetaio.domain.repository.SiteMetadataRepository
 import com.webmetaio.services.converters.TdoSiteMetadataConverter
+import org.springframework.stereotype.Service
 
 import javax.inject.Inject
 
 // Core in, Core out.
+@Service
 class SiteMetadataService {
 
   @Inject

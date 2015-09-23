@@ -5,9 +5,10 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
-
+import javax.persistence.Table
 
 @Entity
+@Table(name="site_metadata")
 class SiteMetadata {
 
   @Id
@@ -32,7 +33,7 @@ class SiteMetadata {
   @Column(name="content") // MEDIUMTEXT
   String content
 
-  @Column(name="lastVisit")
+  @Column(name="last_visit")
   Date lastVisit
 
   @Override

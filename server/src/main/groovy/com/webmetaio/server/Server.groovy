@@ -1,14 +1,20 @@
 package com.webmetaio.server
 
-import com.webmetaio.server.configuration.JerseyInitialization
-import org.glassfish.jersey.servlet.ServletContainer
-import org.glassfish.jersey.servlet.ServletProperties
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.builder.SpringApplicationBuilder
-import org.springframework.boot.context.embedded.ServletRegistrationBean
-import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.ComponentScan
+import org.springframework.context.annotation.Configuration
 
-
+@Configuration
+@ComponentScan(basePackages=
+  [
+    "com.webmetaio.common",
+    "com.webmetaio.core",
+    "com.webmetaio.server",
+    "com.webmetaio.services",
+    "com.webmetaio.domain"
+    ]
+)
 @EnableAutoConfiguration
 public class Server {
 
@@ -16,11 +22,4 @@ public class Server {
     new SpringApplicationBuilder(Server.class).run(args)
   }
 
-  @Bean
-  public ServletRegistrationBean jerseyServlet() {
-
-    ServletRegistrationBean registration = new ServletRegistrationBean(new ServletContainer(), "/*")
-    registration.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, JerseyInitialization.class.getName())
-    registration
-  }
 }

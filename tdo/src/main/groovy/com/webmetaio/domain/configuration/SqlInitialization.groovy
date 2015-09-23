@@ -1,5 +1,6 @@
 package com.webmetaio.domain.configuration
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
@@ -18,14 +19,33 @@ import javax.sql.DataSource
 @EnableJpaRepositories(basePackages = "com.webmetaio.domain")
 public class SqlInitialization{
 
+  @Value('${datasource.driver.classname}')
+  String driverClassName
+
+  @Value('${datasource.url}')
+  String baseUrl
+
+  @Value('${datasource.username}')
+  String userName
+
+  @Value('${datasource.password}')
+  String credentials
+
+  @Value('${jpa.show-sql}')
+  String showSql
+
   @Bean
   public DataSource dataSource() {
 
     DriverManagerDataSource dataSource = new DriverManagerDataSource()
-    dataSource.setDriverClassName("com.mysql.jdbc.Driver")
-    dataSource.setUrl("jdbc:mysql://localhost:3306/soschema")
-    dataSource.setUsername("root")
-    dataSource.setPassword("")
+
+    dataSource.with {
+      driverClassName = driverClassName
+      url = baseUrl
+      username = userName
+      password = credentials
+    }
+
     dataSource
   }
 
@@ -33,8 +53,11 @@ public class SqlInitialization{
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 
     LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean()
-    entityManagerFactoryBean.setDataSource(dataSource())
-    entityManagerFactoryBean.setPackagesToScan("com.jersey.representations")
+    entityManagerFactoryBean.with {
+      dataSource = dataSource()
+    }
+
+    entityManagerFactoryBean.setPackagesToScan("com.webmetaio.domain")
     entityManagerFactoryBean.setJpaProperties(buildHibernateProperties())
 
     entityManagerFactoryBean.setJpaProperties(new Properties() {{
@@ -53,7 +76,7 @@ public class SqlInitialization{
     Properties hibernateProperties = new Properties()
 
     hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect")
-    hibernateProperties.setProperty("hibernate.show_sql", "true")
+    hibernateProperties.setProperty("hibernate.show_sql", showSql)
     hibernateProperties.setProperty("hibernate.use_sql_comments", "false")
     hibernateProperties.setProperty("hibernate.format_sql", "false")
     hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "false")
@@ -77,3 +100,4 @@ public class SqlInitialization{
     new TransactionTemplate(transactionManager())
   }
 }
+
