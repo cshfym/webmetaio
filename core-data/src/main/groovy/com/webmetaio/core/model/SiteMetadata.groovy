@@ -1,4 +1,5 @@
-package com.webmetaio.common.models
+package com.webmetaio.core.model
+
 
 class SiteMetadata {
 
@@ -14,7 +15,7 @@ class SiteMetadata {
 
   @Override
   public String toString() {
-    "SiteMetadata (Common) id=[${id}], uri=[${uri}], ping=[${ping}], lastVisit=[${lastVisit}]"
+    "SiteMetadata (Core) id=[${id}], uri=[${uri}], ping=[${ping}], lastVisit=[${lastVisit}]"
   }
-
 }
+

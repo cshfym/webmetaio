@@ -3,4 +3,7 @@ dependencies {
 
   compile project(":${rootProject.name}-common")
   compile project(":${rootProject.name}-services")
+
+  compile('com.fasterxml.jackson.datatype:jackson-datatype-hibernate4:2.4.6')
+
 }

@@ -1,0 +1,6 @@
+dependencies {
+
+  compile project(":${rootProject.name}-tdo")
+  compile project(":${rootProject.name}-core-data")
+
+}
