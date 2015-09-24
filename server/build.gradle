@@ -6,6 +6,8 @@ dependencies {
   compile project(":${rootProject.name}-common")
   compile project(":${rootProject.name}-services")
 
+  compile 'org.eclipse.jetty:jetty-webapp:9.2.13.v20150730'
+
   // compile('com.fasterxml.jackson.datatype:jackson-datatype-hibernate4:2.4.6')
 
 }

@@ -1,6 +1,7 @@
 package com.webmetaio.domain.configuration
 
-import org.springframework.beans.factory.annotation.Value
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
@@ -16,23 +17,12 @@ import org.springframework.transaction.support.TransactionTemplate
 import javax.sql.DataSource
 
 @Configuration
+@EnableConfigurationProperties(DataSourceConfiguration.class)
 @EnableJpaRepositories(basePackages = "com.webmetaio.domain")
 public class SqlInitialization{
 
-  @Value('${datasource.driver.classname}')
-  String driverClassName
-
-  @Value('${datasource.url}')
-  String baseUrl
-
-  @Value('${datasource.username}')
-  String userName
-
-  @Value('${datasource.password}')
-  String credentials
-
-  @Value('${jpa.show-sql}')
-  String showSql
+  @Autowired
+  DataSourceConfiguration dataSourceConfiguration
 
   @Bean
   public DataSource dataSource() {
@@ -40,10 +30,10 @@ public class SqlInitialization{
     DriverManagerDataSource dataSource = new DriverManagerDataSource()
 
     dataSource.with {
-      driverClassName = driverClassName
-      url = baseUrl
-      username = userName
-      password = credentials
+      driverClassName = dataSourceConfiguration.driverClassname
+      url = dataSourceConfiguration.url
+      username = dataSourceConfiguration.username
+      password = dataSourceConfiguration.password
     }
 
     dataSource
@@ -76,7 +66,7 @@ public class SqlInitialization{
     Properties hibernateProperties = new Properties()
 
     hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect")
-    hibernateProperties.setProperty("hibernate.show_sql", showSql)
+    hibernateProperties.setProperty("hibernate.show_sql", dataSourceConfiguration.showSql.toString())
     hibernateProperties.setProperty("hibernate.use_sql_comments", "false")
     hibernateProperties.setProperty("hibernate.format_sql", "false")
     hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "false")

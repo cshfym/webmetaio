@@ -59,6 +59,7 @@ allprojects {
     compile "com.webmetaio:wmio-utility:1.0"
 
     compile 'org.springframework.boot:spring-boot-starter-parent:1.2.6.RELEASE'
+    compile "org.springframework.boot:spring-boot-starter-actuator:1.2.6.RELEASE"
     compile 'org.springframework.boot:spring-boot-starter-web:1.2.6.RELEASE'
     compile 'org.springframework.boot:spring-boot-maven-plugin:1.2.6.RELEASE'
 
