@@ -1,7 +1,6 @@
 package com.webmetaio.domain.configuration
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
@@ -17,7 +16,6 @@ import org.springframework.transaction.support.TransactionTemplate
 import javax.sql.DataSource
 
 @Configuration
-@EnableConfigurationProperties(DataSourceConfiguration.class)
 @EnableJpaRepositories(basePackages = "com.webmetaio.domain")
 public class SqlInitialization{
 
@@ -35,7 +33,6 @@ public class SqlInitialization{
       username = dataSourceConfiguration.username
       password = dataSourceConfiguration.password
     }
-
     dataSource
   }
 

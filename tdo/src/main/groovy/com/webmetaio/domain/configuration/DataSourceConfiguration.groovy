@@ -1,10 +1,14 @@
 package com.webmetaio.domain.configuration
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.PropertySource
 
 @Configuration
-@ConfigurationProperties(locations = "classpath:datasource.properties", ignoreUnknownFields = false, prefix = "datasource")
+@EnableAutoConfiguration
+@PropertySource(["classpath:application.properties"])
+@ConfigurationProperties(prefix="database")
 class DataSourceConfiguration {
 
   String url
