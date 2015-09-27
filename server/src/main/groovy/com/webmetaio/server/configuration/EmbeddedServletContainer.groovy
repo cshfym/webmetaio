@@ -12,12 +12,10 @@ import java.util.concurrent.TimeUnit
 @Component
 class EmbeddedServletContainer {
 
-  // TODO Add https Jetty Configuration
-
   @Bean
   public EmbeddedServletContainerFactory servletContainer() {
     JettyEmbeddedServletContainerFactory factory = new JettyEmbeddedServletContainerFactory()
-    factory.setPort(9000)
+    factory.setPort(9191)
     factory.setSessionTimeout(10, TimeUnit.MINUTES)
     factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/notfound.html"))
     factory
