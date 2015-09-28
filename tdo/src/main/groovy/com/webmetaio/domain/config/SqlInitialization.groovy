@@ -1,10 +1,8 @@
-package com.webmetaio.domain.configuration
+package com.webmetaio.domain.config
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.PropertySource
-import org.springframework.context.annotation.PropertySources
 import org.springframework.core.env.Environment
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.jdbc.datasource.DriverManagerDataSource
@@ -20,10 +18,6 @@ import javax.sql.DataSource
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.webmetaio.domain")
-@PropertySources([
-  @PropertySource(value="classpath:/application.properties", ignoreResourceNotFound=true),
-  @PropertySource(value="file:/opt/webmetaio/webmetaio.properties", ignoreResourceNotFound=true)
-])
 public class SqlInitialization {
 
   @Autowired
