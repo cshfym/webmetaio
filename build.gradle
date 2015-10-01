@@ -46,12 +46,11 @@ allprojects {
     options.compilerArgs = ["-proc:none"]
   }
 
-  def slf4jVersion = '1.6.4'
-
   def groupName = 'com.webmetaio'
   group = groupName
 
   version = applicationVersion + versionSuffix
+
 
 
   dependencies {
@@ -60,11 +59,17 @@ allprojects {
 
     compile "com.webmetaio:wmio-utility:1.0"
 
-    compile 'org.springframework.boot:spring-boot-starter-parent:1.2.6.RELEASE'
-    compile "org.springframework.boot:spring-boot-starter-actuator:1.2.6.RELEASE"
-    compile 'org.springframework.boot:spring-boot-starter-web:1.2.6.RELEASE'
-    compile 'org.springframework.boot:spring-boot-maven-plugin:1.2.6.RELEASE'
+    compile "org.springframework.boot:spring-boot-starter-parent:1.2.6.RELEASE"
+    compile "org.springframework.boot:spring-boot-starter:1.2.6.RELEASE"
+    compile "org.springframework.boot:spring-boot-starter-web:1.2.6.RELEASE"
+    compile "org.springframework.boot:spring-boot-maven-plugin:1.2.6.RELEASE"
 
+    compile "org.springframework.boot:spring-boot-starter-log4j:1.2.6.RELEASE"
+    compile 'log4j:apache-log4j-extras:1.2.17'
+
+    configurations {
+      all*. exclude group:'org.springframework.boot', module:'spring-boot-starter-logging'
+    }
 
 /*
     compile('org.glassfish.jersey.containers:jersey-container-servlet:2.21') {
