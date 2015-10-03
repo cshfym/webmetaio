@@ -30,4 +30,7 @@ public class ServerSettings {
   @Value('${database.showSql}')
   public String showSql
 
+  @Value('${auth.token')
+  public String authToken
+
 }
