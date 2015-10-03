@@ -1,5 +1,7 @@
 package com.webmetaio.server.filters
 
+import com.webmetaio.server.config.Constants
+import com.webmetaio.server.config.RequestInfoExtractor
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.env.Environment
@@ -19,11 +21,8 @@ import javax.servlet.http.HttpServletResponse
 @Component
 class SecurityFilter implements Filter {
 
-
   @Autowired
   Environment environment
-
-  private String X_WMIO_SECURITY_TOKEN = "X_WMIO_SECURITY_TOKEN"
 
   @Override
   void init(FilterConfig filterConfig) throws ServletException { }
@@ -34,13 +33,12 @@ class SecurityFilter implements Filter {
     HttpServletRequest req = (HttpServletRequest) request
     HttpServletResponse res = (HttpServletResponse) response
 
-    def token = req.getHeader(X_WMIO_SECURITY_TOKEN)
-    def requestAttributeString = "remoteAddr [${req.remoteAddr}], remoteHost [${req.remoteHost}], method [${req.method}], requestURI [${req.requestURI}]"
+    def token = req.getHeader(Constants.X_WMIO_SECURITY_TOKEN)
 
     if (token && (token == environment.getProperty("auth.token"))) {
-      log.info "Authentication success: ${requestAttributeString}"
+      log.info "Authentication success: ${RequestInfoExtractor.instance.extractRequestParameters(req)}"
     } else {
-      log.info "Authentication failed: ${requestAttributeString}"
+      log.info "Authentication failed: ${RequestInfoExtractor.instance.extractRequestParameters(req)}"
       res.sendError(HttpStatus.FORBIDDEN.value(), "Missing or invalid security token.")
       return
     }
