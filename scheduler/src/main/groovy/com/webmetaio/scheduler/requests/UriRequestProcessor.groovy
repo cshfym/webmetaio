@@ -4,11 +4,11 @@ import com.webmetaio.domain.model.UriRequest
 import com.webmetaio.services.urirequest.UriRequestService
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.Scheduled
-import org.springframework.stereotype.Component
 
 @Slf4j
-@Component
+@Configuration
 class UriRequestProcessor {
 
   @Autowired
@@ -16,7 +16,7 @@ class UriRequestProcessor {
 
   @Scheduled(fixedRate=5000L)
   public void process() {
-    List<UriRequest> uriRequests = uriRequestService.allUriRequests()
+    Set<UriRequest> uriRequests = uriRequestService.getAllUriRequests()
     log.info "Processing ${uriRequests.size()} URI requests."
   }
 }
