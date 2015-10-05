@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service
 
 import javax.inject.Inject
 
+/**
+ * Core-Data object in, common object out.
+ */
 @Service
 class SiteMetadataApiService {
 
@@ -14,13 +17,17 @@ class SiteMetadataApiService {
   SiteMetadataService siteMetadataService
 
   Set<SiteMetadata> findAll() {
-
     def siteMetadataList = siteMetadataService.findAll()
-
-    // Convert from core data to common
     siteMetadataList.collect { SiteMetadataConverter.instance.toDomain(it) } as Set<SiteMetadata>
-
-    // Core comes in, Common goes out.
   }
 
+  SiteMetadata findById(Long id) {
+    def siteMetadata = siteMetadataService.findById(id)
+    SiteMetadataConverter.instance.toDomain(siteMetadata)
+  }
+
+  Set<SiteMetadata> findAllByUri(String uri) {
+    def siteMetadataList = siteMetadataService.findAllByUri(uri)
+    siteMetadataList.collect { SiteMetadataConverter.instance.toDomain(it) } as Set<SiteMetadata>
+  }
 }
