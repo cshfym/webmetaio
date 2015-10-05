@@ -6,7 +6,7 @@ import com.webmetaio.tools.converters.CoreDataConverter
 
 
 @Singleton
-class TdoSiteMetadataConverter extends CoreDataConverter {
+class DomainSiteMetadataConverter extends CoreDataConverter {
 
   @Override
   Class getDomainClass() {

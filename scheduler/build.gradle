@@ -1,0 +1,26 @@
+
+project.mainClassName = 'com.webmetaio.server.Server'
+
+dependencies {
+
+  compile project(":${rootProject.name}-services")
+
+}
+
+jar {
+  baseName = 'webmetaio-scheduler'
+  version = '0.1.0-SNAPSHOT'
+}
+
+
+fatJar {
+  manifest {
+    attributes 'Implementation-Title': 'WebMetaIO-Scheduler',
+      'Implementation-Version': version,
+      'Main-Class': 'com.webmetaio.scheduler.Scheduler'
+  }
+}
+
+fatJarPrepareFiles {
+  include 'scheduler.properties'
+}

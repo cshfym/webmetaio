@@ -1,6 +1,7 @@
 //include 'client'
 include 'common'
 include 'core-data'
+include 'scheduler'
 include 'server'
 include 'services'
 include 'tdo'
@@ -10,3 +11,4 @@ rootProject.name = 'webmetaio'
 rootProject.children.each {
   it.name = rootProject.name + "-" + it.name
 }
+
