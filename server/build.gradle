@@ -1,5 +1,5 @@
 
-project.mainClassName = 'com.webmetaio.server.Server'
+project.mainClassName = 'com.webmetaio.matrix.Server'
 
 dependencies {
 
@@ -9,7 +9,7 @@ dependencies {
   compile 'org.eclipse.jetty:jetty-webapp:9.2.13.v20150730'
   compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
   compile 'org.glassfish.jersey.core:jersey-common:2.4.1'
-
+  compile 'com.typesafe:config:1.2.1'
 }
 
 jar {
@@ -22,7 +22,7 @@ fatJar {
   manifest {
     attributes 'Implementation-Title': 'WebMetaIO',
       'Implementation-Version': version,
-      'Main-Class': 'com.webmetaio.server.Server'
+      'Main-Class': 'com.webmetaio.matrix.Server'
   }
 }
 

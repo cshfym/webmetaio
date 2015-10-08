@@ -1,5 +1,5 @@
 
-project.mainClassName = 'com.webmetaio.scheduler.Scheduler'
+project.mainClassName = 'com.webmetaio.matrix.Scheduler'
 
 dependencies {
 
@@ -21,7 +21,7 @@ fatJar {
   manifest {
     attributes 'Implementation-Title': 'WebMetaIO-Scheduler',
       'Implementation-Version': version,
-      'Main-Class': 'com.webmetaio.scheduler.Scheduler'
+      'Main-Class': 'com.webmetaio.matrix.Scheduler'
   }
 }
 

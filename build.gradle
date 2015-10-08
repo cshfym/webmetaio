@@ -6,10 +6,36 @@ buildscript {
       //mavenLocal()
       mavenCentral()
       maven { url 'http://repo.spring.io/libs-release' }
+      maven { url "http://198.199.96.117:8081/nexus/content/repositories/thirdparty" }
     }
 
     classpath "org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE"
     classpath "eu.appsatori:gradle-fatjar-plugin:0.3"
+  }
+}
+
+def projectTypes = [
+  'client': ['common', 'core-data'],
+  'server': ['scheduler', 'server', 'services', 'domain']
+]
+def distributableProjectNames = subprojects.findAll {
+  it.name.endsWith('server')
+}.collect { it.name }
+
+projectTypes.each { projType, projects ->
+  configure(subprojects.findAll { it.name in projects }) {
+
+    version = project.property("${projType}Version") + versionSuffix
+
+    if (!(project.name in distributableProjectNames)) {
+      apply plugin: 'dependency-distribution'
+    } else {
+      apply plugin: 'publishable-application'
+    }
+
+    artifactVersionInfo {
+      output = "${rootProject.name}-${projType}.properties"
+    }
   }
 }
 
@@ -27,9 +53,6 @@ allprojects {
     // Custom Nexus
     maven { url "http://198.199.96.117:8081/nexus/content/repositories/thirdparty" }
   }
-
-  sourceCompatibility = JavaVersion.VERSION_1_7
-  targetCompatibility = JavaVersion.VERSION_1_7
 
   ext {
     versionSuffix = project.hasProperty('release') ? '' : '-SNAPSHOT'
@@ -56,7 +79,7 @@ allprojects {
 
     compile "org.codehaus.groovy:groovy-all:2.3.7"
 
-    compile "com.webmetaio:wmio-utility:1.0"
+    compile "com.webmetaio:wmio-utility:1.1"
 
     compile "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter:${springBootVersion}"
@@ -74,3 +97,10 @@ allprojects {
 
   }
 }
+
+subprojects {
+  sourceCompatibility = JavaVersion.VERSION_1_7
+  targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+
