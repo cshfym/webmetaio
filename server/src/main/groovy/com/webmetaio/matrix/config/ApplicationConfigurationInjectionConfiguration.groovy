@@ -1,8 +1,11 @@
 package com.webmetaio.matrix.config
 
+import com.typesafe.config.Config
+import com.typesafe.config.ConfigFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.core.io.ClassPathResource
+import org.springframework.core.io.FileSystemResource
+
 
 @Configuration
 class ApplicationConfigurationInjectionConfiguration {
@@ -10,14 +13,17 @@ class ApplicationConfigurationInjectionConfiguration {
   @Bean
   static public ApplicationConfigurationBasedPropertyPlaceholderConfigurer appConfigHolder() {
 
-    def metaData = new ClassPathResource('webmetaio-server.properties')
     def config = new ApplicationConfigurationBasedPropertyPlaceholderConfigurer()
-    config.applicationConfiguration = new AppConfig()
-    if (metaData.exists()) {
-      config.location = metaData
-    }
-    config
 
+    def configurationFile = new FileSystemResource("/opt/webmetaio/webmetaio.conf")
+    if (configurationFile.exists()) {
+      Config parsedFile = ConfigFactory.parseFile(configurationFile.file)
+      config.applicationConfiguration = new AppConfig(parsedFile)
+    } else {
+      config.applicationConfiguration = new AppConfig()
+    }
+
+    config
   }
 
 }
