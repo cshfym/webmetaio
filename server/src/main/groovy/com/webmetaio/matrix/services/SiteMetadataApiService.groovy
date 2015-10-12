@@ -30,4 +30,8 @@ class SiteMetadataApiService {
     def siteMetadataList = siteMetadataService.findAllByUri(uri)
     siteMetadataList.collect { SiteMetadataConverter.instance.toDomain(it) } as Set<SiteMetadata>
   }
+
+  String postRequest(String url) {
+    siteMetadataService.postUrlRequest(url)
+  }
 }

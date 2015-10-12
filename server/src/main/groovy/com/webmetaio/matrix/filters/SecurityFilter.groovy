@@ -46,7 +46,5 @@ class SecurityFilter implements Filter {
   }
 
   @Override
-  void destroy() {
-
-  }
+  void destroy() { }
 }

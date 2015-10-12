@@ -20,7 +20,7 @@ class ApplicationConfigurationInjectionConfiguration {
 
     def config = new ApplicationConfigurationBasedPropertyPlaceholderConfigurer()
 
-    def configurationFile = new FileSystemResource("/opt/webmetaio/webmetaio.conf")
+    def configurationFile = new FileSystemResource("/opt/webmetaio/webmetaio-scheduler.conf")
     if (configurationFile.exists()) {
       Config parsedFile = ConfigFactory.parseFile(configurationFile.file)
       config.applicationConfiguration = new AppConfig(parsedFile)

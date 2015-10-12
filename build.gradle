@@ -79,7 +79,7 @@ allprojects {
 
     compile "org.codehaus.groovy:groovy-all:2.3.7"
 
-    compile "com.webmetaio:wmio-utility:1.1"
+    compile "com.webmetaio:wmio-utility:1.2"
 
     compile "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter:${springBootVersion}"

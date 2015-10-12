@@ -1,5 +1,6 @@
 package com.webmetaio.matrix.config
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory
 import org.springframework.boot.context.embedded.ErrorPage
 import org.springframework.boot.context.embedded.jetty.JettyEmbeddedServletContainerFactory
@@ -12,10 +13,13 @@ import java.util.concurrent.TimeUnit
 @Component
 class SchedulerEmbeddedServletContainer {
 
+  @Value('${webmetaio.scheduler.port}')
+  Integer port
+
   @Bean
   public EmbeddedServletContainerFactory servletContainer() {
     JettyEmbeddedServletContainerFactory factory = new JettyEmbeddedServletContainerFactory()
-    factory.setPort(Integer.parseInt(environment.getProperty("scheduler.http.port")))
+    factory.setPort(port)
     factory.setSessionTimeout(10, TimeUnit.MINUTES)
     factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/notfound.html"))
     factory
